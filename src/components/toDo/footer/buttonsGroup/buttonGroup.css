@@ -1,0 +1,5 @@
+.footer_buttonGroup{
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+}

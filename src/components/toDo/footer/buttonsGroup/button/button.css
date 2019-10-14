@@ -1,0 +1,13 @@
+.footer_button:hover, .footer_button.Active:hover {
+  cursor: pointer;
+}
+.footer_button{
+  padding: 3px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color:grey;
+}
+.footer_button.Active{
+  border: 1px solid #ead8d8;
+  border-radius: 5px;
+}

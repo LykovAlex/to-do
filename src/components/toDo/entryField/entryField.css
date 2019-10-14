@@ -1,0 +1,23 @@
+.entryField{
+  display: flex;
+  border-bottom: 1px solid #ead8d8;
+}
+.entryField_input{
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: 3px;
+}
+.completeButton{
+  width: 50px;
+
+}
+.completeButton_icon{
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #ead8d8;
+  border-right: 2px solid #ead8d8;
+  transform: rotate(45deg);
+  margin: 15px;
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+.toDo{
+  width: 40%;
+  max-width: 500px;
+  min-width: 350px;
+  margin: 20px auto;
+}
+.toDoContainer{
+  border-left: 1px solid #ead8d8;
+  border-right: 1px solid #ead8d8;
+  border-bottom: 1px solid #ead8d8;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
