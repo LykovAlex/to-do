@@ -3,7 +3,7 @@ import './toggleCompleteTasks.css';
 
 const ToggleCompleteTasks = ({makeTasksCompleted, tasks}) => {
 
-  const allChecked = tasks.every(task => task.isChecked === 'checked');
+  const allChecked = tasks.every(task => task.isChecked === true);
 
   const handlerClick = () => {
     allChecked ? makeTasksCompleted(false) : makeTasksCompleted(true);

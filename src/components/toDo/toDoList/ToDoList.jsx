@@ -11,10 +11,10 @@ const ToDoList = React.memo(({tasks, statusTasks, handlerChecked, handlerDelete,
       newTasks = [...tasks];
     }
     if(statusTasks === 'Active'){
-      newTasks = tasks.filter(task => task.isChecked === '')
+      newTasks = tasks.filter(task => task.isChecked === false)
     }
     if(statusTasks === 'Completed'){
-      newTasks = tasks.filter(task => task.isChecked === 'checked')
+      newTasks = tasks.filter(task => task.isChecked === true)
     }
     setCountTasks(newTasks.length);
     return newTasks
@@ -23,7 +23,7 @@ const ToDoList = React.memo(({tasks, statusTasks, handlerChecked, handlerDelete,
 
   const allTasks = filteredTasks.map((task)=>
     <ToDoItemContainer
-      text={task.text} key={task.id} id={task.id} isChecked={task.isChecked}
+      text={task.text} key={task._id} id={task._id} isChecked={task.isChecked}
       handlerChecked={handlerChecked} handlerDelete={handlerDelete}
       changeTaskText={changeTaskText}
     />

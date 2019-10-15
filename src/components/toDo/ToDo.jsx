@@ -6,7 +6,7 @@ import Footer from './footer/Footer';
 import './toDo.css';
 
 const ToDo = (props) => {
-  console.log(props.tasks);
+  
   return(
   <div className='toDo'>
     <Title/>

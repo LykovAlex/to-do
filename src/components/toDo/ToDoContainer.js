@@ -1,56 +1,145 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import ToDo from './ToDo';
+import {tasksApi} from '../../api/api';
 
 const ToDoContainer = () => {
 
   const [fieldVFalue, setFieldValue] = useState('');
   const [tasks, setTasks] = useState([]);
-  const [id,setId] = useState(1);
   const [statusTasks, setStatusTasks] = useState('All');
   const [countTasks, setCountTasks] = useState(0);
 
-  const addTask = (e) => {
-    if(e === 'Enter') {
-      if(fieldVFalue){
-        setId(id + 1)
-        const newTask = {
-          text: fieldVFalue,
-          id: id,
-          isChecked: ''
-        }
-        setTasks(
-          [...tasks, newTask]
-        )
-        setFieldValue('');
-      } else {
-      console.log('Введите значение в поле ввода!')
+
+    useEffect(()=> {
+      console.log('component was mounted');
+      loadTasks();
+    }, []);
+
+    // useEffect(()=> {
+    //   getTasksFromServer();
+    // }, [tasks.length]);
+
+
+  // const loadTasks = async () => {
+  //   const response = await tasksApi.getTasks();
+  //   if(response.status === 200){
+  //     console.log(response);
+  //     setTasks([...response.data])
+  //   }
+  // }
+
+   async function loadTasks(){
+    const response = await tasksApi.getTasks();
+    if(response.status === 200){
+      console.log(response);
+      setTasks([...response.data])
+    }
+  }
+
+  // const getTasksFromServer = async () => {
+  //   const response = await tasksApi.getTasks();
+  //   if(response.status === 200){
+  //     console.log(response);
+  //     setTasks([...response.data])
+  //   }
+  // }
+
+   async function getTasksFromServer() {
+    const response = await tasksApi.getTasks();
+    if(response.status === 200){
+      console.log(response);
+      setTasks([...response.data])
+    }
+  }
+
+
+  const addTaskToServer = async (newTask) => {
+    const response = await tasksApi.addTask(newTask);
+    if(response.status === 200){
+      console.log(response);
+      // getTasksFromServer()
+      setTasks([...tasks, response.data]);
+    }
+  }
+
+  const changeChecked = async (id, task) => {
+    const response = await tasksApi.changeCheckedTask(id, task);
+      console.log(response);
+    if(response.status === 200){
+      getTasksFromServer()
+    }
+  }
+  const changeText = async (id,task) => {
+    const response = await tasksApi.changeTextTask(id, task);
+      console.log(response);
+    if(response.status === 200){
+      getTasksFromServer()
+    }
+  }
+
+  const deleteTask = async (id) => {
+    const response = await tasksApi.deleteTask(id);
+    console.log(response);
+    if(response.status === 200){
+      // getTasksFromServer()
+      console.log(response.data);
+      const newTasks = tasks.filter(task => task._id !== response.data);
+      setTasks([...newTasks])
+    }
+  }
+
+  const completeAllTasks = async () => {
+    const response = await tasksApi.changeCheckedTasksTrue();
+    console.log(response);
+    if(response.status === 200){
+      getTasksFromServer()
+    }
+  }
+
+  const incompleteAllTasks = async () => {
+    const response = await tasksApi.changeCheckedTasksFalse();
+    console.log(response);
+    if(response.status === 200){
+      getTasksFromServer()
+    }
+  }
+
+  const deleteCompleteTask = async () => {
+    const response = await tasksApi.deleteCompleteTask();
+    console.log(response);
+    if(response.status === 200){
+      getTasksFromServer()
+    }
+  }
+
+const addTask = (e) => {
+  if(e === 'Enter') {
+    if(fieldVFalue){
+      const newTask = {
+        text: fieldVFalue,
+        isChecked: false
+      }
+      addTaskToServer(newTask);
+      setFieldValue('');
+    } else {
+    console.log('Введите значение в поле ввода!')
     }
   }
 }
 
   const handlerChecked =(id) => {
-    const newTasks = tasks.map(task => {
-      if(task.id === id){
-        if(task.isChecked === 'checked'){
-          task.isChecked = '';
-        } else{
-          task.isChecked = 'checked'
-        }
-       return task
-      } else{
-        return task
-      }
-    })
-      return(
-        setTasks(
-          [...newTasks]
-        )
-      )
+    let task = tasks.filter(task =>task._id === id);
+    task = task[0];
+    if(task.isChecked === true){
+      task.isChecked = false;
+    } else{
+      task.isChecked = true;
+    }
+    changeChecked(id,task);
   }
 
   const handlerDelete = (id) => {
-    const newTasks = tasks.filter(task => task.id !== id);
-    setTasks([...newTasks]);
+    deleteTask(id);
   }
 
   const showActiveTasks = () => {
@@ -66,34 +155,24 @@ const ToDoContainer = () => {
   }
 
   const clearCompleted = () => {
-    const clearCompletedTasks = tasks.filter(task => task.isChecked === '');
-    setTasks([...clearCompletedTasks]);
+    deleteCompleteTask();
   }
 
   const makeTasksCompleted = (bool) => {
-    const isChecked = bool ? 'checked' : '';
-    const completedTasks = tasks.map(task => {
-      if(task.isChecked === isChecked){
-        return task;
-      } else {
-        task.isChecked = isChecked;
-        return task
-      }
-    });
-    setTasks([...completedTasks]);
+    if(bool){
+      completeAllTasks();
+    }else{
+      incompleteAllTasks();
+    }
   }
 
   const changeTaskText = (id, newText) => {
-    const updatedTasks = tasks.map(task => {
-      if(task.id === id){
-        task.text = newText;
-        return task
-      } else{
-        return task
-      }
-    })
-    setTasks([...updatedTasks])
+    let task = tasks.filter(task =>task._id === id);
+    task = task[0];
+    task.text = newText;
+    changeText(id, task);
   }
+
 
   return(
     <ToDo
