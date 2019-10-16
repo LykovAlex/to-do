@@ -11,105 +11,60 @@ const ToDoContainer = () => {
 
 
     useEffect(()=> {
-      console.log('component was mounted');
-      loadTasks();
+      console.log('component was mounted')
+      getTasksFromServer()
     }, []);
 
     // useEffect(()=> {
+    //   console.log('component was mounted2');
+    //   console.log('component was update');
     //   getTasksFromServer();
     // }, [tasks.length]);
 
 
-  // const loadTasks = async () => {
-  //   const response = await tasksApi.getTasks();
-  //   if(response.status === 200){
-  //     console.log(response);
-  //     setTasks([...response.data])
-  //   }
-  // }
-
-   async function loadTasks(){
-    const response = await tasksApi.getTasks();
-    if(response.status === 200){
-      console.log(response);
-      setTasks([...response.data])
-    }
+  async function getTasksFromServer() {
+    const response = await tasksApi.getTasks()
+    console.log('Get data from server')
+    if(response) setTasks([...response])
   }
-
-  // const getTasksFromServer = async () => {
-  //   const response = await tasksApi.getTasks();
-  //   if(response.status === 200){
-  //     console.log(response);
-  //     setTasks([...response.data])
-  //   }
-  // }
-
-   async function getTasksFromServer() {
-    const response = await tasksApi.getTasks();
-    if(response.status === 200){
-      console.log(response);
-      setTasks([...response.data])
-    }
-  }
-
-
+  
   const addTaskToServer = async (newTask) => {
-    const response = await tasksApi.addTask(newTask);
-    if(response.status === 200){
-      console.log(response);
-      // getTasksFromServer()
-      setTasks([...tasks, response.data]);
-    }
+    const response = await tasksApi.addTask(newTask)
+     if(response) setTasks([...tasks, response])
+    // getTasksFromServer()
   }
 
   const changeChecked = async (id, task) => {
-    const response = await tasksApi.changeCheckedTask(id, task);
-      console.log(response);
-    if(response.status === 200){
-      getTasksFromServer()
-    }
+    const response = await tasksApi.changeCheckedTask(id, task)
+    if(response) getTasksFromServer()
   }
   const changeText = async (id,task) => {
-    const response = await tasksApi.changeTextTask(id, task);
-      console.log(response);
-    if(response.status === 200){
-      getTasksFromServer()
-    }
+    const response = await tasksApi.changeTextTask(id, task)
+      if(response) getTasksFromServer()
   }
 
   const deleteTask = async (id) => {
-    const response = await tasksApi.deleteTask(id);
-    console.log(response);
-    if(response.status === 200){
-      // getTasksFromServer()
-      console.log(response.data);
-      const newTasks = tasks.filter(task => task._id !== response.data);
+    const response = await tasksApi.deleteTask(id)
+    // getTasksFromServer()
+    if(response) {
+      const newTasks = tasks.filter(task => task._id !== response)
       setTasks([...newTasks])
     }
   }
 
   const completeAllTasks = async () => {
-    const response = await tasksApi.changeCheckedTasksTrue();
-    console.log(response);
-    if(response.status === 200){
-      getTasksFromServer()
-    }
+    const response = await tasksApi.changeCheckedTasksTrue()
+     if(response) getTasksFromServer()
   }
 
   const incompleteAllTasks = async () => {
-    const response = await tasksApi.changeCheckedTasksFalse();
-    console.log(response);
-    if(response.status === 200){
-      getTasksFromServer()
-    }
+    const response = await tasksApi.changeCheckedTasksFalse()
+     if(response) getTasksFromServer()
   }
 
   const deleteCompleteTask = async () => {
-    const response = await tasksApi.deleteCompleteTask();
-    console.log(response);
-    if(response.status === 200){
-      getTasksFromServer()
-    }
+    const response = await tasksApi.deleteCompleteTask()
+    if(response) getTasksFromServer()
   }
 
 const addTask = (e) => {
@@ -130,11 +85,7 @@ const addTask = (e) => {
   const handlerChecked =(id) => {
     let task = tasks.filter(task =>task._id === id);
     task = task[0];
-    if(task.isChecked === true){
-      task.isChecked = false;
-    } else{
-      task.isChecked = true;
-    }
+    task.isChecked = !task.isChecked
     changeChecked(id,task);
   }
 

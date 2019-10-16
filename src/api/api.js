@@ -8,29 +8,113 @@ const instance = axios.create({
     }
 });
 
+// export const tasksApi = {
+//   getTasks(){
+//     return instance.get('/')
+//   },
+//   addTask(data){
+//     return instance.post('/create',data)
+//   },
+//   changeCheckedTask(id, data){
+//     return instance.put(`/${id}/update`, data)
+//   },
+//   changeTextTask(id, data){
+//     return instance.put(`/${id}/update`, data)
+//   },
+//   changeCheckedTasksTrue(){
+//     return instance.put('/update_true');
+//   },
+//   changeCheckedTasksFalse(){
+//     return instance.put('/update_false');
+//   },
+//   deleteTask(id){
+//     return instance.delete(`/${id}/delete`)
+//   },
+//   deleteCompleteTask(){
+//     return instance.delete('/delete');
+//   }
+// }
+
 export const tasksApi = {
-  getTasks(){
-    return instance.get('/')
+   async getTasks(){
+     try {
+      const response = await instance.get('/');
+      if(response.status === 200){
+        return response.data
+      }
+     } catch (error) {
+        console.log(error)
+     }
   },
-  addTask(data){
-    return instance.post('/create',data)
+  async addTask(data){
+    try {
+      const response = await instance.post('/create',data);
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }  
   },
-  changeCheckedTask(id, data){
-    return instance.put(`/${id}/update`, data)
+  async changeCheckedTask(id, data){
+    try {
+      const response = await instance.put(`/${id}/update`, data);
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }
   },
-  changeTextTask(id, data){
-    return instance.put(`/${id}/update`, data)
+  async changeTextTask(id, data){
+    try {
+      const response = await instance.put(`/${id}/update`, data);
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }
   },
-  changeCheckedTasksTrue(){
-    return instance.put('/update_true');
+  async changeCheckedTasksTrue(){
+    try {
+      const response = await instance.put('/update_true');
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }
   },
-  changeCheckedTasksFalse(){
-    return instance.put('/update_false');
+  async changeCheckedTasksFalse(){
+    try {
+      const response = await instance.put('/update_false');
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }
   },
-  deleteTask(id){
-    return instance.delete(`/${id}/delete`)
+
+  async deleteTask(id){
+    try {
+      const response = await instance.delete(`/${id}/delete`);
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+        console.log(error)
+    }
   },
-  deleteCompleteTask(){
-    return instance.delete('/delete');
+  async deleteCompleteTask(){
+    try {
+      const response = await instance.delete('/delete');
+      if(response.status === 200){
+        return response.data
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
