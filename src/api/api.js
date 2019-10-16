@@ -1,116 +1,78 @@
 import * as axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:1234/tasks',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    }
+  baseURL: 'http://localhost:1234/tasks',
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  }
 });
 
-// export const tasksApi = {
-//   getTasks(){
-//     return instance.get('/')
-//   },
-//   addTask(data){
-//     return instance.post('/create',data)
-//   },
-//   changeCheckedTask(id, data){
-//     return instance.put(`/${id}/update`, data)
-//   },
-//   changeTextTask(id, data){
-//     return instance.put(`/${id}/update`, data)
-//   },
-//   changeCheckedTasksTrue(){
-//     return instance.put('/update_true');
-//   },
-//   changeCheckedTasksFalse(){
-//     return instance.put('/update_false');
-//   },
-//   deleteTask(id){
-//     return instance.delete(`/${id}/delete`)
-//   },
-//   deleteCompleteTask(){
-//     return instance.delete('/delete');
-//   }
-// }
-
-export const tasksApi = {
-   async getTasks(){
-     try {
-      const response = await instance.get('/');
-      if(response.status === 200){
-        return response.data
-      }
-     } catch (error) {
-        console.log(error)
-     }
-  },
-  async addTask(data){
+const tasksApi = {
+  async get() {
     try {
-      const response = await instance.post('/create',data);
-      if(response.status === 200){
+      const response = await instance.get('');
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
-        console.log(error)
-    }  
-  },
-  async changeCheckedTask(id, data){
-    try {
-      const response = await instance.put(`/${id}/update`, data);
-      if(response.status === 200){
-        return response.data
-      }
-    } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   },
-  async changeTextTask(id, data){
+  async add(data) {
     try {
-      const response = await instance.put(`/${id}/update`, data);
-      if(response.status === 200){
+      const response = await instance.post('', data);
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   },
-  async changeCheckedTasksTrue(){
+  async updateStatus(id, data) {
     try {
-      const response = await instance.put('/update_true');
-      if(response.status === 200){
+      const response = await instance.put(`/${id}/status`, data);
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   },
-  async changeCheckedTasksFalse(){
+  async updateText(id, data) {
     try {
-      const response = await instance.put('/update_false');
-      if(response.status === 200){
+      const response = await instance.put(`/${id}/text`, data);
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   },
-
-  async deleteTask(id){
+  async updateStatuses(data) {
     try {
-      const response = await instance.delete(`/${id}/delete`);
-      if(response.status === 200){
+      const response = await instance.put('', data);
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   },
-  async deleteCompleteTask(){
+  async delete(id) {
     try {
-      const response = await instance.delete('/delete');
-      if(response.status === 200){
+      const response = await instance.delete(`/${id}`);
+      if (response.status === 200) {
+        return response.data
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  async deleteComplete() {
+    try {
+      const response = await instance.delete('');
+      if (response.status === 200) {
         return response.data
       }
     } catch (error) {
@@ -118,3 +80,5 @@ export const tasksApi = {
     }
   }
 }
+
+export default tasksApi

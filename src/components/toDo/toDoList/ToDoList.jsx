@@ -1,19 +1,19 @@
 import React from 'react';
 import ToDoItemContainer from './toDoItem/ToDoItemContainer';
-import './toDoList.css';
+import './to-do-list.css';
 
-const ToDoList = React.memo(({tasks, statusTasks, handlerChecked, handlerDelete, setCountTasks, changeTaskText}) => {
+const ToDoList = React.memo(({ tasks, statusTasks, handlerChecked, handlerDelete, setCountTasks, changeTaskText }) => {
 
-  const  filterTasks = (tasks) => {
+  const filterTasks = (tasks) => {
     let newTasks = [];
 
-    if(statusTasks === 'All') {
+    if (statusTasks === 'All') {
       newTasks = [...tasks];
     }
-    if(statusTasks === 'Active'){
+    if (statusTasks === 'Active') {
       newTasks = tasks.filter(task => task.isChecked === false)
     }
-    if(statusTasks === 'Completed'){
+    if (statusTasks === 'Completed') {
       newTasks = tasks.filter(task => task.isChecked === true)
     }
     setCountTasks(newTasks.length);
@@ -21,7 +21,7 @@ const ToDoList = React.memo(({tasks, statusTasks, handlerChecked, handlerDelete,
   }
   const filteredTasks = filterTasks(tasks);
 
-  const allTasks = filteredTasks.map((task)=>
+  const allTasks = filteredTasks.map((task) =>
     <ToDoItemContainer
       text={task.text} key={task._id} id={task._id} isChecked={task.isChecked}
       handlerChecked={handlerChecked} handlerDelete={handlerDelete}
@@ -29,9 +29,9 @@ const ToDoList = React.memo(({tasks, statusTasks, handlerChecked, handlerDelete,
     />
   )
 
-  return(
+  return (
     <div>
-      <ul className='toDoList'>
+      <ul className='to-do-list'>
         {allTasks}
       </ul>
     </div>

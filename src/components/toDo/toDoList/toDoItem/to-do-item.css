@@ -1,0 +1,22 @@
+.to-do-item{
+  display: flex;
+  margin: 0px 0;
+  height: 50px;
+  align-items: center;
+}
+.to-do-item_complete{
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.to-do-item_text-complete{
+  color: #ccc;
+  text-decoration: line-through;
+  transition: all .5s;
+}
+.to-do-item_text{
+  transition: all .5s;
+  width: 100%;
+}

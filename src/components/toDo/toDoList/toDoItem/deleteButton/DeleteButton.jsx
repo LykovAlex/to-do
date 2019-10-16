@@ -1,9 +1,9 @@
 import React from 'react';
-import './deleteButton.css';
+import './delete-button.css';
 
-const DeleteButton = ({handlerDelete, id}) => {
-  return(
-    <div onClick={() => handlerDelete(id)} className='closeButton'>
+const DeleteButton = ({ handlerDelete, id }) => {
+  return (
+    <div onClick={() => handlerDelete(id)} className='close-button'>
       <span className="close"></span>
     </div>
   )

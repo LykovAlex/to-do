@@ -1,12 +1,12 @@
 import React from 'react';
-import './checkingField.css';
+import './checking-field.css';
 
 
-const CheckingField = ({handlerChecked, isChecked, id}) => {
+const CheckingField = ({ handlerChecked, isChecked, id }) => {
 
-  return(
+  return (
     <label className="container">
-      <input type="checkbox" onChange={ () => handlerChecked(id)} checked={isChecked}/>
+      <input type="checkbox" onChange={() => handlerChecked(id, isChecked)} checked={isChecked} />
       <span className="checkmark"></span>
     </label>
   )

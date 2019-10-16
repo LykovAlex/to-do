@@ -1,7 +1,7 @@
 import React from 'react';
-import './toggleCompleteTasks.css';
+import './toggle-complete-tasks.css';
 
-const ToggleCompleteTasks = ({makeTasksCompleted, tasks}) => {
+const ToggleCompleteTasks = ({ makeTasksCompleted, tasks }) => {
 
   const allChecked = tasks.every(task => task.isChecked === true);
 
@@ -9,9 +9,9 @@ const ToggleCompleteTasks = ({makeTasksCompleted, tasks}) => {
     allChecked ? makeTasksCompleted(false) : makeTasksCompleted(true);
   }
 
-  return(
+  return (
     <label className="container2">
-      <input type="checkbox" onChange={handlerClick} checked={allChecked}/>
+      <input type="checkbox" onChange={handlerClick} checked={allChecked} />
       <span className="checkmark2"></span>
     </label>
   )
