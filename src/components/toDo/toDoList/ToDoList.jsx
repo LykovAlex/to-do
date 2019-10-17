@@ -23,8 +23,12 @@ const ToDoList = React.memo(({ tasks, statusTasks, handlerChecked, handlerDelete
 
   const allTasks = filteredTasks.map((task) =>
     <ToDoItemContainer
-      text={task.text} key={task._id} id={task._id} isChecked={task.isChecked}
-      handlerChecked={handlerChecked} handlerDelete={handlerDelete}
+      text={task.text}
+      key={task._id}
+      id={task._id}
+      isChecked={task.isChecked}
+      handlerChecked={handlerChecked}
+      handlerDelete={handlerDelete}
       changeTaskText={changeTaskText}
     />
   )

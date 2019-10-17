@@ -1,12 +1,14 @@
-import React from 'react';
-import './button.css';
+import React from "react";
+import "./button.css";
+// import classnames from 'classnames';
 
-const Button = ({text, changeClass, isActivClass, id}) => {
-  
-  const buttonClass = isActivClass ? 'footer_button  Active' : 'footer_button';
-  return(
-      <button onClick={() => changeClass(id)} className={buttonClass} >{text}</button>
-  )
-}
+const Button = ({ text, changeClass, isActivClass, id }) => {
+  const buttonClass = `footer_button ${isActivClass ? "  Active" : ""}`;
+  return (
+    <button onClick={() => changeClass(id)} className={buttonClass}>
+      {text}
+    </button>
+  );
+};
 
-export default Button
+export default Button;

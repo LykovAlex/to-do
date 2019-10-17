@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
-import './to-do-item-input.css';
+import React from "react";
+import "./to-do-item-input.css";
 
-const ToDoItemInput = ({ text, id, changeTaskText, setTextIsChanging }) => {
+const ToDoItemInput = ({ fieldText, text, setFieldText, id, changeTaskText, setTextIsChanging }) => {
 
-  const [fieldText, setFieldText] = useState(text);
-
-  const changeText = (e) => {
-    if (e.key === 'Enter') {
-      changeTaskText(id, fieldText);
-      setTextIsChanging(false);
+  const onBlurInput = (e) => {
+    if (e) {
+      if (fieldText !== text) {
+        let ckeckedfieldText = fieldText.replace(/ +(?= )/g, "");
+        changeTaskText(id, ckeckedfieldText);
+        setFieldText(ckeckedfieldText)
+      }
+    } else{
+      console.log('Required field');
+      setFieldText(text)
     }
-  }
-  const changeText2 = () => {
-    changeTaskText(id, fieldText);
     setTextIsChanging(false);
-  }
+  };
 
   return (
     <div>
-      <input className='to-do-item-input' type='text' value={fieldText} onChange={(e) => setFieldText(e.target.value)} onBlur={changeText2} onKeyPress={(e) => changeText(e)} />
+      <input
+        className="to-do-item-input"
+        name="text"
+        type="text"
+        value={fieldText}
+        autoFocus
+        onChange={e => setFieldText(e.target.value)}
+        onBlur={e => onBlurInput(e.target.value)}
+      />
     </div>
+  );
 
-  )
-}
-export default ToDoItemInput
+
+};
+export default ToDoItemInput;

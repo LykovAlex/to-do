@@ -15,8 +15,11 @@
   color: #ccc;
   text-decoration: line-through;
   transition: all .5s;
+  width: 100%;
+  min-width: 300px;
 }
 .to-do-item_text{
   transition: all .5s;
   width: 100%;
+  min-width: 300px;
 }
